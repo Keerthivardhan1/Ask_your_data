@@ -32,11 +32,15 @@ if(chioce == "Profiling"):
 
 if(chioce == "Machine Learning"):
     st.title("Machile Learning")
-    select = st.select_box("Select your target variable .." , df.columns)
+    select = st.selectbox("Select your target variable .." , df.columns)
     if st.button("Run Modeling"):
-        setup(df , target = select , silent = True)
-        setup_df = pull()
-        st.dataframe(setup_df)
+        df = df.dropna()
+        for col in df.columns:
+            if df[col].dtype == 'category':
+                df[col] = df[col].cat.codes
+        st.dataframe(df)
+    
+        
 
 
     
